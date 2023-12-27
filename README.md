@@ -1,0 +1,1 @@
+# power-image-template
