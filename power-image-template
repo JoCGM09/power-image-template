@@ -1,7 +1,11 @@
 #!/bin/bash
 
+if [ -f .env ]; then
+  source .env
+fi
+
 # login validation
-ibmcloud login --apikey mG_mY4bFIsl2iDmrEeg-UoPgdQrZgOQSj3OqvbBc8MlP
+ibmcloud login --apikey $IBM_CLOUD_API_KEY
 
 # CSM-Power-test Workspace target
 service_list_output=$(ibmcloud pi service-list)
