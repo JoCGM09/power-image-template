@@ -1,4 +1,4 @@
-FROM apline:latest
+FROM alpine:latest
 COPY power-image-template.sh /app/
 WORKDIR /app
 RUN chmod +x power-image-template.sh 
