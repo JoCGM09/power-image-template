@@ -28,9 +28,8 @@ Ingresar en IAM para crear una API-KEY que permita la conexión a ibmcloud media
 
 - Abrir una terminal y cambiar el directorio de trabajo actual a la ubicación en donde quieres clonar el directorio.
 
-- Escribir ´git clone´ y pegar el URL del repositorio.
+- Escribir `git clone` y pegar el URL del repositorio.
 
-´´´
+```
 git clone https://github.com/JoCGM09/power-image-template.git
-´´´
-
+```
