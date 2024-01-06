@@ -5,10 +5,11 @@ _Este repositorio contiene el script en bash que importa automáticamente la ima
 ## Contenido 📋
 1. [Crear una IBM Cloud API key](#crear-una-ibm-cloud-api-key)
 2. [Crear un bucket en IBM Cloud Object Storage](#crear-un-bucket-en-ibm-cloud-object-storage)
-2. [Clonar el repositorio](#clonar-el-respositorio)
-4. [Crear una imagen con Docker](#crear-una-imagen-con-docker)
-5. [Subir la imagen a IBM Cloud Container Registry]()
-6. [Crear el Batch Job en Code Engine]()
+3. [Crear una credencial de servicio en IBM Cloud Object Storage](#crear-una-credencial-de-servicio-en-ibm-cloud-object-storage)
+4. [Clonar el repositorio](#clonar-el-respositorio)
+5. [Crear una imagen con Docker](#crear-una-imagen-con-docker)
+6. [Subir la imagen a IBM Cloud Container Registry]()
+7. [Crear el Batch Job en Code Engine]()
 
 ## Procedimiento
 
@@ -18,11 +19,11 @@ Ingresar en IAM para crear una API-KEY que permita la conexión a ibmcloud media
 
 - Ingresar a Manage -> Access IAM -> Api keys -> My IBM Cloud API keys -> Create 
 
-<img width="945" alt="ApiKey" src="images/power-image-template-1.jpg">
+<img width="920" alt="ApiKey" src="images/power-image-template-1.jpg">
 
 - Generamos la llave y la copiamos para más adelante.
 
-<img width="945" alt="Apikey2" src="images/power-image-template-2.jpg">
+<img width="920" alt="Apikey2" src="images/power-image-template-2.jpg">
 
 ### Crear un bucket en IBM Cloud Object Storage
 
@@ -34,11 +35,11 @@ Ingresar en IAM para crear una API-KEY que permita la conexión a ibmcloud media
     - Grupo de recurso: Ingresar el grupo de recurso a utilizar, de no colocar se creará en Default.
     - Tags (opcional).
 
-<img width="945" alt="COS" src="images/power-image-template-4.jpg">
+<img width="920" alt="COS" src="images/power-image-template-4.jpg">
 
 - Ingresar a la instancia de Object Storage y selecciona Crear Bucket.
 
-<img width="945" alt="COS" src="images/power-image-template-5.jpg">
+<img width="920" alt="COS" src="images/power-image-template-5.jpg">
 
 - Seleccionar los siguientes parámetros:
     - Nombre de bucket: Ingresa un nombre único a nivel global para tu bucket.
@@ -52,9 +53,31 @@ Ingresar en IAM para crear una API-KEY que permita la conexión a ibmcloud media
         - Vencimiento de versión: 30 días
         - Seleccionar Guardar
 
-<img width="945" alt="COS" src="images/power-image-template-6.jpg">
+<img width="920" alt="COS" src="images/power-image-template-6.jpg">
 
-    - Seleccionar Crear Bucket
+Seleccionar Crear Bucket
+
+### Crear una credencial de servicio en IBM Cloud Object Storage
+
+- Seleccionar la opción de Credencial de Servicio y seleccionar Nueva Credencial
+
+<img width="920" alt="COS" src="images/power-image-template-7.jpg">
+
+- Ingresar los siguientes parámetros:
+    - Nombre
+    - Rol: Escritura
+    - ID de servicio: Autogenerado
+    - Incluir credencial HMAC: Habilitar 
+
+- Seleccionar Agregar
+
+Al esperar que termine de crear, desplegar las credenciales y copiar las `cos_hmac_keys`, tanto el `access_key_id` como el `secret_access_key` y las copiamos para más adelante.
+
+<img width="920" alt="COS" src="images/power-image-template-8.jpg">
+
+
+
+
 
 
 
@@ -62,7 +85,7 @@ Ingresar en IAM para crear una API-KEY que permita la conexión a ibmcloud media
 
 - Ingresar al repositorio principal y seleccionar la opción ´Code´ -> HTTPS y copiar el URL.
 
-<img width="945" alt="RepoClone" src="images/power-image-template-3.jpg">
+<img width="920" alt="RepoClone" src="images/power-image-template-3.jpg">
 
 - Abrir una terminal y cambiar el directorio de trabajo actual a la ubicación en donde quieres clonar el directorio.
 
