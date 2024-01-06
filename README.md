@@ -89,12 +89,116 @@ git clone https://github.com/JoCGM09/power-image-template.git
 ```
 ### Subir la imagen a IBM Cloud Container Registry
 
-Este paso está documentado en la guía "Batch Job en Code Engine".
+- Instalar la [CLI de IBM Cloud](https://cloud.ibm.com/docs/containers?topic=containers-cli-install)
+- Instalar la [CLI de docker](https://docs.docker.com/engine/install/)
+- Instalar el plugin de IBM Cloud Container Registry
+
+```
+ibmcloud plugin install container-registry -r 'IBM Cloud'
+```
+
+- Ingresar a la cuenta de IBM Cloud desde la CLI, luego ingresar el código otorgado en el buscador.
+
+```
+ibmcloud login --sso
+```
+
+- Verificar que estemos apuntando a la región correcta de IBM Cloud Container Registry
+
+```
+ibmcloud cr region-set us-south
+```
+
+- Seleccionar un nombre para el namespace y crearlo usando el comando:
+
+```
+ibmcloud cr namespace-add <nombre_para_el_namespace>
+```
+- Loguea el deamon local de Docker en el IBM Cloud container Registry:
+
+```
+ibmcloud cr login
+```
+
+- Posicionado sobre el directorio del proyecto clonado de Github donde está el Dockerfile, crear la imagen:
+
+```
+docker build -t us.icr.io/<nombre_del_namespace>/<nombre_para_el_repositorio>:latest .
+```
+
+- Sube la imagen creada:
+
+```
+docker push us.icr.io/<nombre_del_namespace>/<nombre_para_el_repositorio>:latest
+```
+- Verifica que tu imagen se haya subido al repositorio privado:
+
+```
+ibmcloud cr image-list
+```
 
 ### Crear el Batch Job en Code Engine
 
+- Buscar el servicio de Code Engine y crear un nuevo proyecto.
+
+<img width="920" alt="RepoClone" src="images/power-image-template-9.jpg">
+
+- Ingresar los siguientes parámetros:
+    - Ubicación: Dallas (us-south)
+    - Nombre del proyecto
+    - Grupo de recursos
+
+Luego seleccionar Crear.
+
+- Seleccionar la opción de Jobs para crear un nuevo ejecutable.
+
+Aquí seleccionamos la siguiente información:
+    - Nombre del Job
+    - Código: Código fuente
+    - Imagen de referencia: Pegar el URL del repositorio de Github.
+    - Seleccionar `Especificar detalles del build`
+Ahora seleccionar los siguientes parámetros:
+- Source: 
+    - URL del repositorio: URL del repositorio de Github
+    - Acceso al código del repositorio: None
+    - Nombre de la rama: master
+    - Directorio de referencia: <dejar en blanco>
+
+Seleccionamos `Siguiente`.
+
+<img width="920" alt="RepoClone" src="images/power-image-template-10.jpg">
+
+- Strategy:
+    - Dockerfile: Dockerfile
+    - Timeout: 10m
+    - Build resources: M (1 vCPU / 4GB)
+
+<img width="920" alt="RepoClone" src="images/power-image-template-11.jpg">    
+
+- Output:
+Aparecerá la opción de crear un nuevo Registry Secret, ingresar los siguientes parámetros:
+    - Nombre del secreto
+    - Contenido del secreto: IBM Container Registry
+    - Ubicación: Dallas (private.us.icr.io)
+    - IAM API Key: Ingresar el API Key del usuario
+    - Email (opcional)
+
+Ahora seleccionar Crear.
+
+<img width="920" alt="RepoClone" src="images/power-image-template-12.jpg">  
+
+> [!NOTE]  
+> Si estás usando un IBM Container Registry de otra cuenta, ingresar una API Key generada en esa otra cuenta.
+
+Ahora revisar en Output los siguientes parámetros.
+    - Registry server: private.us.icr.io
+    - Registry Sectret: <Seleccionar el nombre del secreto>
+    - Verificar que los datos se completen automáticamente y estén correctos tanto el Namespace como el Repositorio.
+
+<img width="920" alt="RepoClone" src="images/power-image-template-13.jpg">  
+
 > [!IMPORTANT]  
-> Al crear el Batch Job en Code Engine deberás crear las siguientes variables de entorno usando los mismos nombres:
+> Al crear el Batch Job en Code Engine deberás crear las siguientes variables de entorno usando los mismos nombres en el apartado de `variables de entorno (opcional)`:
 
 - `IBM_CLOUD_API_KEY`: API Key de IBM Cloud
 - `IBM_POWER_WORKSPACE_NAME`: Nombre del Workspace de Power VS
@@ -102,6 +206,6 @@ Este paso está documentado en la guía "Batch Job en Code Engine".
 - `COS_ACCESS_KEY`: Access_key_id de las credenciales cos_hmac_keys de las Credenciales de Servicio de IBM COS
 - `COS_SECRET_KEY`: Secret_access_key de las credenciales cos_hmac_keys de las Credenciales de Servicio de IBM COS
 
-Este paso está documentado en la guía "Batch Job en Code Engine".
+Finalmente seleccionar Crear y al cargar la imagen, seleccionar Submit Job:
 
-
+<img width="920" alt="RepoClone" src="images/power-image-template-14.jpg">  
