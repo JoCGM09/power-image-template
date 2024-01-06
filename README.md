@@ -93,7 +93,7 @@ Este paso está documentado en la guía "Batch Job en Code Engine".
 
 ### Crear el Batch Job en Code Engine
 
-> **Note**: <br>
+> **Note**<br>
 Al crear el Batch Job en Code Engine deberás crear las siguientes variables de entorno usando los mismos nombres:
 
 - `IBM_CLOUD_API_KEY`: API Key de IBM Cloud
