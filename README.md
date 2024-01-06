@@ -1,5 +1,5 @@
 # power-image-template
-<<<<<<< HEAD
+
 _Este repositorio contiene el script en bash que importa automáticamente la imagen de una instancia virtual Power en IBM Cloud y la exporta en un IBM Cloud Object Storage_
 
 ## Contenido 📋
@@ -10,3 +10,5 @@ _Este repositorio contiene el script en bash que importa automáticamente la ima
 ### Crear una IBM Cloud API key
 
 Ingresar en IAM para crear una API-KEY que permita la conexión a ibmcloud mediante la identificación del usuario.
+
+<img width="945" alt="workspace" src="images/power-image-template-1.jpg">
