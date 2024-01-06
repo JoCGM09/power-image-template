@@ -3,8 +3,8 @@
 _Este repositorio contiene el script en bash que importa automáticamente la imagen de una instancia virtual Power en IBM Cloud y la exporta en un IBM Cloud Object Storage. Para la implementación es necesario tener ya creado y configurado tanto un Workspace como una instancia virtual Power VS precargada y configurada._
 
 ## Contenido 📋
-1. [Crear una IBM Cloud API key](#procedimiento)
-2. [Crear un bucket en IBM Cloud Object Storage]()
+1. [Crear una IBM Cloud API key](#crear-una-ibm-cloud-api-key)
+2. [Crear un bucket en IBM Cloud Object Storage](#crear-un-bucket-en-ibm-cloud-object-storage)
 2. [Clonar el repositorio](#clonar-el-respositorio)
 4. [Crear una imagen con Docker](#crear-una-imagen-con-docker)
 5. [Subir la imagen a IBM Cloud Container Registry]()
@@ -30,11 +30,33 @@ Ingresar en IAM para crear una API-KEY que permita la conexión a ibmcloud media
 - Seleccionar los siguientes parámetros:
     - Infraestructura: IBM Cloud 
     - Plan: Lite si no existe una instancia gratuita o Standard de ya ocupar una.
-    - Nombre de servicio: Ingresar un nombre a elección
+    - Nombre de servicio: Ingresar un nombre a elección.
     - Grupo de recurso: Ingresar el grupo de recurso a utilizar, de no colocar se creará en Default.
-    - Tags (opcional)
+    - Tags (opcional).
 
 <img width="945" alt="COS" src="images/power-image-template-4.jpg">
+
+- Ingresar a la instancia de Object Storage y selecciona Crear Bucket.
+
+<img width="945" alt="COS" src="images/power-image-template-5.jpg">
+
+- Seleccionar los siguientes parámetros:
+    - Nombre de bucket: Ingresa un nombre único a nivel global para tu bucket.
+    - Resiliencia: Regional
+    - Locación: Dallas (us-south)
+    - Clase de almacenamiento: Smart tier
+    - Versionamiento de objetos: Deshabilitado
+    - Configuración avanzada: Agregar regla de vencimiento (el objeto se eliminará automáticamente después de 30 días)
+        - Tipo: Simple
+        - Regla de vencimiento: Habilitada
+        - Vencimiento de versión: 30 días
+        - Seleccionar Guardar
+
+<img width="945" alt="COS" src="images/power-image-template-6.jpg">
+
+    - Seleccionar Crear Bucket
+
+
 
 ### Clonar el respositorio
 
